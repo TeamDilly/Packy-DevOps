@@ -57,9 +57,9 @@ resource "aws_instance" "packy-v2-web-dev-ec2" {
     user_data = <<-EOF
     #!/bin/bash
     sudo yum update -y
-    sudo amazon-linux-extras install docker
+    sudo yum install docker -y
     sudo service docker start
-    sudo usermod -a -G docker ec2-user
+    sudo usermod -aG docker ec2-user
     EOF
 
     tags = {
