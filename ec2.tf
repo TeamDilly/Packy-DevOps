@@ -23,6 +23,28 @@ resource "aws_iam_instance_profile" "ecs-instance-profile" {
     role = aws_iam_role.ecs-instance-role.name
 }
 
+# resource "aws_instance" "packy-v2-ecs-dev-ec2" {
+#     # TODO: ECS Optimized AMI로 변경
+#     ami = "ami-0023481579962abd4" # Amazon Linux 2023 AMI
+#     instance_type = "t2.micro"
+#     subnet_id = aws_subnet.packy-v2-public-subnet-01.id
+    
+#     vpc_security_group_ids = [aws_security_group.packy-v2-ecs-sg.id]
+
+#     iam_instance_profile = aws_iam_instance_profile.ecs-instance-profile.name
+
+#     key_name = "packy-v2-key-pair"
+
+#     user_data = <<-EOF
+#     #!/bin/bash
+#     echo ECS_CLUSTER=${aws_ecs_cluster.packy-v2-ecs-cluster.name} >> /etc/ecs/ecs.config
+#     EOF
+
+#     tags = {
+#       Name = "packy-v2-ecs-dev-ec2"
+#     }
+# }
+
 resource "aws_instance" "packy-v2-web-dev-ec2" {
     ami = "ami-0023481579962abd4" # Amazon Linux 2023 AMI
     instance_type = "t2.micro"
@@ -30,14 +52,15 @@ resource "aws_instance" "packy-v2-web-dev-ec2" {
     
     vpc_security_group_ids = [aws_security_group.packy-v2-ecs-sg.id]
 
-    iam_instance_profile = aws_iam_instance_profile.ecs-instance-profile.name
-
     key_name = "packy-v2-key-pair"
 
-    # user_data = <<-EOF
-    # #!/bin/bash
-    # echo ECS_CLUSTER=${aws_ecs_cluster.packy-v2-ecs-cluster.name} >> /etc/ecs/ecs.config
-    # EOF
+    user_data = <<-EOF
+    #!/bin/bash
+    sudo yum update -y
+    sudo amazon-linux-extras install docker
+    sudo service docker start
+    sudo usermod -a -G docker ec2-user
+    EOF
 
     tags = {
       Name = "packy-v2-web-dev-ec2"
