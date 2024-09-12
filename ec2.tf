@@ -60,6 +60,7 @@ resource "aws_instance" "packy-v2-web-dev-ec2" {
     sudo yum install docker -y
     sudo service docker start
     sudo usermod -aG docker ec2-user
+    sudo yum install aws-cli -y
     EOF
 
     tags = {
