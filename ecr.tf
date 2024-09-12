@@ -24,11 +24,11 @@ resource "aws_ecr_lifecycle_policy" "pack_v2_lifecycle" {
     "rules": [
         {
             "rulePriority": 1,
-            "description": "Expire old images when there are more than 2",
+            "description": "Expire old images when there are more than 3",
             "selection": {
                 "tagStatus": "any",
                 "countType": "imageCountMoreThan",
-                "countNumber": 2
+                "countNumber": 3
             },
             "action": {
                 "type": "expire"
