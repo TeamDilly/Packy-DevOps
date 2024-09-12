@@ -50,7 +50,7 @@ resource "aws_instance" "packy-v2-web-dev-ec2" {
     instance_type = "t2.micro"
     subnet_id = aws_subnet.packy-v2-public-subnet-01.id
     
-    vpc_security_group_ids = [aws_security_group.packy-v2-web-sg.id]
+    vpc_security_group_ids = [ aws_security_group.packy-v2-web-sg.id ]
 
     key_name = "packy-v2-key-pair"
 

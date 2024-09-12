@@ -5,21 +5,21 @@ resource "aws_security_group" "packy-v2-ecs-sg" {
         from_port = 80
         to_port = 80
         protocol = "tcp"
-        cidr_blocks = ["0.0.0.0/0"] # TODO: 로드밸런서 sg랑 연결
+        cidr_blocks = [ "0.0.0.0/0" ] # TODO: 로드밸런서 sg랑 연결
     }
 
     ingress {
         from_port = 22
         to_port = 22
         protocol = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
+        cidr_blocks = [ "0.0.0.0/0" ]
     }
 
     egress {
         from_port = 0
         to_port = 0
         protocol = "-1"
-        cidr_blocks = ["0.0.0.0/0"]
+        cidr_blocks = [ "0.0.0.0/0" ]
     }
 
     tags = {
@@ -34,28 +34,28 @@ resource "aws_security_group" "packy-v2-web-sg" {
         from_port = 80
         to_port = 80
         protocol = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
+        cidr_blocks = [ "0.0.0.0/0" ]
     }
 
     ingress {
         from_port = 22
         to_port = 22
         protocol = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
+        cidr_blocks = [ "0.0.0.0/0" ]
     }
 
     ingress {
         from_port = 3000
         to_port = 3000
         protocol = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
+        cidr_blocks = [ "0.0.0.0/0" ]
     }
 
     egress {
         from_port = 0
         to_port = 0
         protocol = "-1"
-        cidr_blocks = ["0.0.0.0/0"]
+        cidr_blocks = [ "0.0.0.0/0" ]
     }
 
     tags = {
