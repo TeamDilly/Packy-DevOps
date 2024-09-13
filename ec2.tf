@@ -45,12 +45,18 @@ resource "aws_iam_instance_profile" "ecs-instance-profile" {
 #     }
 # }
 
-resource "aws_instance" "packy-v2-web-dev-ec2" {
+resource "aws_eip" "packy-v2-eip" {
+    instance = aws_instance.packy-v2-web-ec2.id
+}
+
+resource "aws_instance" "packy-v2-web-ec2" {
     ami = "ami-0023481579962abd4" # Amazon Linux 2023 AMI
     instance_type = "t2.micro"
     subnet_id = aws_subnet.packy-v2-public-subnet-01.id
     
     vpc_security_group_ids = [ aws_security_group.packy-v2-web-sg.id ]
+
+    iam_instance_profile = aws_iam_instance_profile.ecs-instance-profile.name
 
     key_name = "packy-v2-key-pair"
 
@@ -64,6 +70,6 @@ resource "aws_instance" "packy-v2-web-dev-ec2" {
     EOF
 
     tags = {
-      Name = "packy-v2-web-dev-ec2"
+      Name = "packy-v2-web-ec2"
     }
 }
