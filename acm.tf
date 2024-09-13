@@ -1,5 +1,6 @@
 resource "aws_acm_certificate" "packy-v2-web-acm-wildcard" {
-  domain_name = "*.packyforyou.com"
+  domain_name = "packyforyou.com"
+  subject_alternative_names = ["*.packyforyou.com"]
   validation_method = "DNS"
 
   tags = {
